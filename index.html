@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تفوّقي | السادس العلمي</title>
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1394562096807253" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1394562896807251" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
@@ -14,16 +14,20 @@
 
     <div class="app-container">
         <section id="home-screen" class="card active">
-            <img src="https://image2url.com/r2/default/images/1772564393799-a5fa7d5c-5f1a-47fa-b0b8-6c1afc94f54e.jpg" alt="Logo" class="app-logo">
-            <h1 class="app-title">تفوّقي</h1>
-            <p class="app-subtitle">اختبارات اللغة الإنجليزية التفاعلية</p>
+            <img src="https://image2url.com/r2/default/images/1772564393799-a5fa7d5c-5f1a-47fa-b0b8-6c1afc94f54e.jpg" alt="تفوّقي" class="main-logo">
             
-            <button id="start-btn" class="action-btn">ابدأ الاختبار</button>
+            <h1 class="title">تفوّقي التعليمي</h1>
+            
+            <div style="display:none">
+                <p>موقع تفوّقي هو منصة تعليمية لطلاب السادس العلمي في العراق، توفر اختبارات في مادة اللغة الإنجليزية والأسئلة الوزارية المكررة لضمان النجاح.</p>
+            </div>
 
-            <div class="ad-wrapper">
+            <button id="start-btn" class="btn-primary">ابدأ الاختبار</button>
+
+            <div class="ad-space" style="margin-top:20px; min-height:100px;">
                 <ins class="adsbygoogle"
                      style="display:block"
-                     data-ad-client="ca-pub-1394562096807253"
+                     data-ad-client="ca-pub-1394562896807251"
                      data-ad-slot="auto"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
@@ -31,47 +35,7 @@
             </div>
         </section>
 
-        <section id="quiz-screen" class="card hidden">
-            <div class="status-bar">
-                <div class="progress-outer"><div id="progress-inner"></div></div>
-                <div class="score-text">الدرجة: <span id="live-score">0</span></div>
-            </div>
-            
-            <div id="question-content">
-                <h2 id="q-text" dir="ltr"></h2>
-                <div id="options-grid" class="options-grid"></div>
-            </div>
-
-            <div id="feedback" class="feedback-box hidden"></div>
-            <button id="next-btn" class="next-btn hidden">السؤال التالي</button>
-
-            <div class="ad-wrapper">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1394562096807253"
-                     data-ad-slot="auto"
-                     data-ad-format="horizontal"
-                     data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
-        </section>
-
-        <section id="result-screen" class="card hidden">
-            <h2>انتهى الاختبار 🎉</h2>
-            <div class="result-circle"><span id="final-res">0</span></div>
-            <button id="retry-btn" class="action-btn">إعادة الاختبار</button>
-
-            <div class="ad-wrapper">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-1394562096807253"
-                     data-ad-slot="auto"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
-        </section>
-    </div>
+        </div>
 
     <script src="script.js"></script>
 </body>
