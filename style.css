@@ -1,108 +1,87 @@
 :root {
     --gold: #f1c40f;
-    --blue: #3498db;
     --dark: #0f172a;
-    --glass: rgba(255, 255, 255, 0.05);
+    --blue: #3498db;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-
 body {
-    background: radial-gradient(circle at center, #1e293b, #0f172a);
-    color: white;
-    min-height: 100vh;
+    background: radial-gradient(circle, #1e293b, #0f172a);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+    padding: 15px;
 }
 
 .app-container { width: 100%; max-width: 450px; }
 
 .card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    transition: 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .hidden { display: none !important; }
 
-/* Logo & Titles */
 .app-logo {
-    width: 120px;
-    height: 120px;
+    width: 100px; height: 100px;
     border-radius: 50%;
     border: 3px solid var(--gold);
     margin-bottom: 15px;
-    object-fit: cover;
 }
-.app-title { font-size: 2.2rem; color: var(--gold); margin-bottom: 5px; }
-.subtitle { color: #94a3b8; margin-bottom: 25px; font-size: 0.95rem; }
 
-/* Buttons */
-.main-button, .next-button, .retry-button {
+.app-title { font-size: 2.2rem; color: var(--gold); margin-bottom: 5px; }
+
+.action-btn, .next-btn {
     background: var(--gold);
     color: #000;
     border: none;
-    padding: 16px;
-    border-radius: 15px;
-    width: 100%;
-    font-weight: 800;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow: 0 10px 20px rgba(241, 196, 15, 0.2);
-}
-.main-button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(241, 196, 15, 0.3); }
-
-/* Quiz Styles */
-.progress-bar-container { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
-#progress-fill { width: 0%; height: 100%; background: var(--blue); transition: 0.4s ease; }
-
-.options-grid { display: grid; gap: 12px; margin-top: 20px; }
-.option-btn {
-    background: rgba(255,255,255,0.08);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.1);
     padding: 15px;
     border-radius: 12px;
-    text-align: left;
-    font-size: 1rem;
+    width: 100%;
+    font-weight: 800;
     cursor: pointer;
-    transition: 0.2s;
+    font-size: 1.1rem;
+    margin-top: 15px;
 }
-.option-btn:hover:not(:disabled) { background: rgba(255,255,255,0.15); border-color: var(--gold); }
-.correct { background: #27ae60 !important; border-color: #fff !important; }
-.wrong { background: #c0392b !important; border-color: #fff !important; }
 
-/* Ads Section */
-.ad-container {
-    margin-top: 30px;
+.options-grid { display: grid; gap: 10px; margin-top: 20px; }
+
+.opt-btn {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 12px;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.correct { background: #27ae60 !important; }
+.wrong { background: #c0392b !important; }
+
+.progress-outer { width: 100%; height: 6px; background: #334155; border-radius: 10px; overflow: hidden; }
+#progress-inner { width: 0%; height: 100%; background: var(--blue); transition: 0.3s; }
+
+.ad-wrapper {
+    margin-top: 25px;
     min-height: 90px;
     background: rgba(0,0,0,0.2);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    border-radius: 12px;
 }
 
-/* Result Circle */
-.final-score-circle {
-    width: 130px;
-    height: 130px;
+.result-circle {
+    width: 120px; height: 120px;
     border: 4px solid var(--gold);
     border-radius: 50%;
     margin: 20px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: 900;
-    color: var(--gold);
-                                                                     }
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; font-weight: bold; color: var(--gold);
+}
