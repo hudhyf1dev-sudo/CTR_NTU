@@ -4,47 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تفوّقي | السادس العلمي</title>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1394562896807251" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="app-container">
-        
-        <div id="home-screen" class="card-container">
-            <h1 class="app-title">تفوّقي 🎓</h1>
-            <p class="app-desc">اختبار تفاعلي لمادة اللغة الإنجليزية - الصف السادس العلمي</p>
-            <button id="start-btn" class="btn primary-btn">ابدأ الاختبار</button>
-        </div>
+        <section id="home-screen" class="card active">
+            <div class="logo-wrapper">
+                <img src="https://image2url.com/r2/default/images/1772564393799-a5fa7d5c-5f1a-47fa-b0b8-6c1afc94f54e.jpg" alt="تفوّقي" class="app-logo">
+            </div>
+            <h1 class="app-title">تفوّقي</h1>
+            <p class="subtitle">طريقك للدرجة الكاملة في اللغة الإنجليزية</p>
+            
+            <button id="start-btn" class="main-button">ابدأ الاختبار الآن</button>
 
-        <div id="quiz-screen" class="card-container hidden">
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1394562896807251"
+                     data-ad-slot="default"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </section>
+
+        <section id="quiz-screen" class="card hidden">
             <div class="quiz-header">
-                <span id="question-tracker">السؤال 1</span>
+                <div class="progress-bar-container"><div id="progress-fill"></div></div>
                 <div class="score-badge">الدرجة: <span id="current-score">0</span></div>
             </div>
             
-            <div class="question-box">
-                <h2 id="question-text" dir="ltr">Question Text</h2>
-                <div id="options-container" class="options-grid">
-                    </div>
+            <div id="question-box" class="fade-in">
+                <h2 id="question-text" dir="ltr"></h2>
+                <div id="options-list" class="options-grid"></div>
             </div>
 
-            <div id="feedback-box" class="feedback hidden">
-                </div>
+            <div id="feedback" class="feedback-msg hidden"></div>
+            <button id="next-btn" class="next-button hidden">التالي</button>
 
-            <button id="next-btn" class="btn secondary-btn hidden">السؤال التالي</button>
-        </div>
-
-        <div id="result-screen" class="card-container hidden">
-            <h2>انتهى الاختبار 🎉</h2>
-            <p>لقد أتممت جميع الأسئلة بنجاح!</p>
-            <div class="final-score-box">
-                <span class="score-label">درجتك النهائية</span>
-                <h1 id="final-score" class="score-number">0</h1>
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1394562896807251"
+                     data-ad-slot="default"
+                     data-ad-format="horizontal"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
-            <button id="restart-btn" class="btn primary-btn">إعادة الاختبار</button>
-        </div>
+        </section>
 
+        <section id="result-screen" class="card hidden">
+            <h2 class="result-title">النتيجة النهائية 🎉</h2>
+            <div class="final-score-circle">
+                <span id="final-score">0</span>
+            </div>
+            <p id="evaluation-text"></p>
+            <button id="restart-btn" class="retry-button">إعادة الاختبار</button>
+
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1394562896807251"
+                     data-ad-slot="default"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </section>
     </div>
 
     <script src="script.js"></script>
