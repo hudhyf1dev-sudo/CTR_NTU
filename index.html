@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تفوّقي | السادس العلمي</title>
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1394562896807251" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-1394562096807253">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1394562096807253" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
@@ -14,20 +16,18 @@
 
     <div class="app-container">
         <section id="home-screen" class="card active">
-            <img src="https://image2url.com/r2/default/images/1772564393799-a5fa7d5c-5f1a-47fa-b0b8-6c1afc94f54e.jpg" alt="تفوّقي" class="main-logo">
-            
-            <h1 class="title">تفوّقي التعليمي</h1>
-            
-            <div style="display:none">
-                <p>موقع تفوّقي هو منصة تعليمية لطلاب السادس العلمي في العراق، توفر اختبارات في مادة اللغة الإنجليزية والأسئلة الوزارية المكررة لضمان النجاح.</p>
+            <div class="logo-box">
+                <img src="https://image2url.com/r2/default/images/1772564393799-a5fa7d5c-5f1a-47fa-b0b8-6c1afc94f54e.jpg" alt="تفوّقي" class="app-logo">
             </div>
+            <h1 class="main-title">تفوّقي</h1>
+            <p class="subtitle">اختبارات إنجليزية تفاعلية لطلاب السادس العلمي</p>
+            
+            <button id="start-btn" class="primary-btn">ابدأ الاختبار</button>
 
-            <button id="start-btn" class="btn-primary">ابدأ الاختبار</button>
-
-            <div class="ad-space" style="margin-top:20px; min-height:100px;">
+            <div class="ad-container">
                 <ins class="adsbygoogle"
                      style="display:block"
-                     data-ad-client="ca-pub-1394562896807251"
+                     data-ad-client="ca-pub-1394562096807253"
                      data-ad-slot="auto"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
@@ -35,7 +35,49 @@
             </div>
         </section>
 
-        </div>
+        <section id="quiz-screen" class="card hidden">
+            <div class="quiz-status">
+                <div class="progress-bar-bg"><div id="progress-bar-fill"></div></div>
+                <div class="score-display">النقاط: <span id="current-score">0</span></div>
+            </div>
+            
+            <div class="question-section">
+                <h2 id="question-text" dir="ltr"></h2>
+                <div id="options-container" class="options-grid"></div>
+            </div>
+
+            <div id="feedback-area" class="feedback-msg hidden"></div>
+            <button id="next-question-btn" class="next-btn hidden">التالي</button>
+
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1394562096807253"
+                     data-ad-slot="auto"
+                     data-ad-format="horizontal"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </section>
+
+        <section id="result-screen" class="card hidden">
+            <h2 class="result-title">النتيجة النهائية</h2>
+            <div class="score-badge">
+                <span id="final-result-score">0</span>
+            </div>
+            <button id="retry-game-btn" class="primary-btn">إعادة الاختبار</button>
+
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-1394562096807253"
+                     data-ad-slot="auto"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </section>
+    </div>
 
     <script src="script.js"></script>
 </body>
