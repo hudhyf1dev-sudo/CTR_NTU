@@ -1,135 +1,88 @@
-// مصفوفة الأسئلة (يمكنك إضافة المزيد بنفس الصيغة)
-const questions = [
-    {
-        question: "You ______ leave your keys in the car.",
-        options: ["should", "shouldn't", "must"],
-        correctAnswer: "shouldn't"
-    },
-    {
-        question: "He ______ a book every day. (Present Simple)",
-        options: ["reads", "read", "reading"],
-        correctAnswer: "reads"
-    },
-    {
-        question: "She is ______ than her sister.",
-        options: ["beautifuler", "more beautiful", "most beautiful"],
-        correctAnswer: "more beautiful"
-    }
+const quizQuestions = [
+    { q: "You ______ leave your keys in the car.", options: ["should", "shouldn't", "must"], a: "shouldn't" },
+    { q: "He ______ a book every day. (Present Simple)", options: ["reads", "read", "reading"], a: "reads" },
+    { q: "Beautiful, more ______", options: ["beautifuller", "beautifully", "beautiful"], a: "beautiful" },
+    { q: "If I have enough money, I ______ (buy) a car.", options: ["buy", "will buy", "bought"], a: "will buy" },
+    { q: "She is ______ than her sister.", options: ["tall", "taller", "tallest"], a: "taller" }
 ];
 
-// المتغيرات لحفظ حالة الاختبار
-let currentQuestionIndex = 0;
-let score = 0;
+let currentIndex = 0;
+let totalScore = 0;
 
-// جلب عناصر واجهة المستخدم من HTML
-const homeScreen = document.getElementById('home-screen');
-const quizScreen = document.getElementById('quiz-screen');
-const resultScreen = document.getElementById('result-screen');
-
-const startBtn = document.getElementById('start-btn');
-const nextBtn = document.getElementById('next-btn');
-const restartBtn = document.getElementById('restart-btn');
-
-const questionText = document.getElementById('question-text');
-const optionsContainer = document.getElementById('options-container');
-const currentScoreElement = document.getElementById('current-score');
-const questionTracker = document.getElementById('question-tracker');
-const feedbackBox = document.getElementById('feedback-box');
-const finalScoreElement = document.getElementById('final-score');
-
-// إضافة مستمعي الأحداث للأزرار الرئيسية
-startBtn.addEventListener('click', startQuiz);
-nextBtn.addEventListener('click', loadNextQuestion);
-restartBtn.addEventListener('click', resetQuiz);
-
-function startQuiz() {
-    homeScreen.classList.add('hidden');
-    quizScreen.classList.remove('hidden');
-    loadQuestion();
-}
-
-function loadQuestion() {
-    // إعادة ضبط الواجهة للسؤال الجديد
-    resetState();
-    
-    // جلب السؤال الحالي
-    let currentQuestion = questions[currentQuestionIndex];
-    
-    // تحديث النصوص
-    questionTracker.innerText = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
-    questionText.innerText = currentQuestion.question;
-    
-    // إنشاء أزرار الخيارات
-    currentQuestion.options.forEach(option => {
-        const button = document.createElement('button');
-        button.innerText = option;
-        button.classList.add('option-btn');
-        // اتجاه النص يسار لليمين لأن الخيارات باللغة الإنجليزية
-        button.setAttribute('dir', 'ltr'); 
-        
-        button.addEventListener('click', () => selectAnswer(button, currentQuestion.correctAnswer));
-        optionsContainer.appendChild(button);
-    });
-}
-
-function resetState() {
-    nextBtn.classList.add('hidden');
-    feedbackBox.classList.add('hidden');
-    feedbackBox.className = 'feedback hidden'; // تصفير الكلاسات
-    feedbackBox.innerText = '';
-    optionsContainer.innerHTML = '';
-}
-
-function selectAnswer(selectedButton, correctAnswer) {
-    const selectedAnswer = selectedButton.innerText;
-    
-    // إيقاف تفاعل الأزرار بعد الاختيار
-    Array.from(optionsContainer.children).forEach(button => {
-        button.disabled = true;
-        // تلوين الإجابة الصحيحة باللون الأخضر في جميع الحالات
-        if (button.innerText === correctAnswer) {
-            button.classList.add('correct');
-        }
-    });
-
-    feedbackBox.classList.remove('hidden');
-
-    // التحقق من الإجابة
-    if (selectedAnswer === correctAnswer) {
-        score += 2; // إضافة درجتين
-        currentScoreElement.innerText = score;
-        feedbackBox.classList.add('success');
-        feedbackBox.innerText = "إجابة صحيحة! ✔️";
-    } else {
-        selectedButton.classList.add('wrong');
-        feedbackBox.classList.add('error');
-        feedbackBox.innerText = `إجابة خاطئة ✖️\nالجواب الصحيح هو: ${correctAnswer}`;
-    }
-
-    // إظهار زر السؤال التالي
-    nextBtn.classList.remove('hidden');
-}
-
-function loadNextQuestion() {
-    currentQuestionIndex++;
-    
-    if (currentQuestionIndex < questions.length) {
-        loadQuestion();
-    } else {
-        showResult();
+// دالة لتحديث الإعلانات برمجياً عند الانتقال بين الشاشات
+function triggerAdRefresh() {
+    try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+        console.warn("AdSense is not ready or blocked");
     }
 }
 
-function showResult() {
-    quizScreen.classList.add('hidden');
-    resultScreen.classList.remove('hidden');
-    finalScoreElement.innerText = score;
+function navigateTo(screenId) {
+    document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+    const target = document.getElementById(screenId);
+    target.classList.remove('hidden');
+    triggerAdRefresh(); // طلب إعلان جديد عند كل انتقال
 }
 
-function resetQuiz() {
-    currentQuestionIndex = 0;
-    score = 0;
-    currentScoreElement.innerText = score;
-    resultScreen.classList.add('hidden');
-    homeScreen.classList.remove('hidden');
+document.getElementById('start-btn').onclick = () => {
+    navigateTo('quiz-screen');
+    renderQuestion();
+};
+
+function renderQuestion() {
+    const data = quizQuestions[currentIndex];
+    document.getElementById('question-text').innerText = data.q;
+    const list = document.getElementById('options-list');
+    list.innerHTML = '';
+    
+    document.getElementById('next-btn').classList.add('hidden');
+    document.getElementById('feedback').classList.add('hidden');
+    
+    // تحديث شريط التقدم
+    const progress = (currentIndex / quizQuestions.length) * 100;
+    document.getElementById('progress-fill').style.width = `${progress}%`;
+
+    data.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.innerText = opt;
+        btn.className = 'option-btn';
+        btn.onclick = () => validateAnswer(btn, opt, data.a);
+        list.appendChild(btn);
+    });
 }
+
+function validateAnswer(btn, selected, correct) {
+    const allBtns = document.querySelectorAll('.option-btn');
+    allBtns.forEach(b => b.disabled = true);
+    
+    const feedback = document.getElementById('feedback');
+    feedback.classList.remove('hidden');
+
+    if (selected === correct) {
+        btn.classList.add('correct');
+        totalScore += 2;
+        feedback.innerText = "إجابة صحيحة! أحسنت 🌟";
+        feedback.style.color = "#2ecc71";
+        document.getElementById('current-score').innerText = totalScore;
+    } else {
+        btn.classList.add('wrong');
+        feedback.innerText = `للأسف خاطئة، الجواب الصحيح: ${correct}`;
+        feedback.style.color = "#e74c3c";
+        allBtns.forEach(b => { if(b.innerText === correct) b.classList.add('correct'); });
+    }
+    document.getElementById('next-btn').classList.remove('hidden');
+}
+
+document.getElementById('next-btn').onclick = () => {
+    currentIndex++;
+    if (currentIndex < quizQuestions.length) {
+        renderQuestion();
+    } else {
+        document.getElementById('progress-fill').style.width = `100%`;
+        navigateTo('result-screen');
+        document.getElementById('final-score').innerText = totalScore;
+    }
+};
+
+document.getElementById('restart-btn').onclick = () => location.reload();
