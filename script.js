@@ -1,88 +1,69 @@
-const quizQuestions = [
-    { q: "You ______ leave your keys in the car.", options: ["should", "shouldn't", "must"], a: "shouldn't" },
-    { q: "He ______ a book every day. (Present Simple)", options: ["reads", "read", "reading"], a: "reads" },
-    { q: "Beautiful, more ______", options: ["beautifuller", "beautifully", "beautiful"], a: "beautiful" },
-    { q: "If I have enough money, I ______ (buy) a car.", options: ["buy", "will buy", "bought"], a: "will buy" },
-    { q: "She is ______ than her sister.", options: ["tall", "taller", "tallest"], a: "taller" }
+const qBank = [
+    { q: "You (should / shouldn't) leave your keys.", options: ["should", "shouldn't"], a: "shouldn't" },
+    { q: "He read a book (Present Simple)", options: ["He reads a book", "He reading a book"], a: "He reads a book" },
+    { q: "Beautiful, more ______", options: ["beautifuller", "beautiful", "most beautiful"], a: "beautiful" }
 ];
 
-let currentIndex = 0;
-let totalScore = 0;
+let idx = 0;
+let score = 0;
 
-// دالة لتحديث الإعلانات برمجياً عند الانتقال بين الشاشات
-function triggerAdRefresh() {
-    try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-        console.warn("AdSense is not ready or blocked");
-    }
+function refreshAds() {
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e){}
 }
 
-function navigateTo(screenId) {
+function nav(to) {
     document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-    const target = document.getElementById(screenId);
-    target.classList.remove('hidden');
-    triggerAdRefresh(); // طلب إعلان جديد عند كل انتقال
+    document.getElementById(to).classList.remove('hidden');
+    refreshAds();
 }
 
 document.getElementById('start-btn').onclick = () => {
-    navigateTo('quiz-screen');
-    renderQuestion();
+    nav('quiz-screen');
+    loadQ();
 };
 
-function renderQuestion() {
-    const data = quizQuestions[currentIndex];
-    document.getElementById('question-text').innerText = data.q;
-    const list = document.getElementById('options-list');
-    list.innerHTML = '';
-    
+function loadQ() {
+    const data = qBank[idx];
+    document.getElementById('q-text').innerText = data.q;
+    const grid = document.getElementById('options-grid');
+    grid.innerHTML = '';
     document.getElementById('next-btn').classList.add('hidden');
     document.getElementById('feedback').classList.add('hidden');
-    
-    // تحديث شريط التقدم
-    const progress = (currentIndex / quizQuestions.length) * 100;
-    document.getElementById('progress-fill').style.width = `${progress}%`;
+    document.getElementById('progress-inner').style.width = `${(idx/qBank.length)*100}%`;
 
-    data.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.innerText = opt;
-        btn.className = 'option-btn';
-        btn.onclick = () => validateAnswer(btn, opt, data.a);
-        list.appendChild(btn);
+    data.options.forEach(o => {
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.innerText = o;
+        b.onclick = () => check(b, o, data.a);
+        grid.appendChild(b);
     });
 }
 
-function validateAnswer(btn, selected, correct) {
-    const allBtns = document.querySelectorAll('.option-btn');
-    allBtns.forEach(b => b.disabled = true);
-    
-    const feedback = document.getElementById('feedback');
-    feedback.classList.remove('hidden');
+function check(b, sel, cor) {
+    document.querySelectorAll('.opt-btn').forEach(btn => btn.disabled = true);
+    const f = document.getElementById('feedback');
+    f.classList.remove('hidden');
 
-    if (selected === correct) {
-        btn.classList.add('correct');
-        totalScore += 2;
-        feedback.innerText = "إجابة صحيحة! أحسنت 🌟";
-        feedback.style.color = "#2ecc71";
-        document.getElementById('current-score').innerText = totalScore;
+    if(sel === cor) {
+        b.classList.add('correct');
+        score += 2;
+        document.getElementById('live-score').innerText = score;
+        f.innerText = "صحيح ✅";
     } else {
-        btn.classList.add('wrong');
-        feedback.innerText = `للأسف خاطئة، الجواب الصحيح: ${correct}`;
-        feedback.style.color = "#e74c3c";
-        allBtns.forEach(b => { if(b.innerText === correct) b.classList.add('correct'); });
+        b.classList.add('wrong');
+        f.innerText = `خطأ، الجواب: ${cor}`;
     }
     document.getElementById('next-btn').classList.remove('hidden');
 }
 
 document.getElementById('next-btn').onclick = () => {
-    currentIndex++;
-    if (currentIndex < quizQuestions.length) {
-        renderQuestion();
-    } else {
-        document.getElementById('progress-fill').style.width = `100%`;
-        navigateTo('result-screen');
-        document.getElementById('final-score').innerText = totalScore;
+    idx++;
+    if(idx < qBank.length) loadQ();
+    else {
+        nav('result-screen');
+        document.getElementById('final-res').innerText = score;
     }
 };
 
-document.getElementById('restart-btn').onclick = () => location.reload();
+document.getElementById('retry-btn').onclick = () => location.reload();
